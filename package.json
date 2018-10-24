@@ -1,0 +1,25 @@
+{
+  "name": "cardanode",
+  "version": "1.0.0",
+  "description": "Cardano Web API Test",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:EricDelerue/cardanode.git"
+  },
+  "homepage": "https://github.com/EricDelerue/cardanode#readme",
+  "bugs": {
+    "url": "https://github.com/EricDelerue/cardanode/issues"
+  },
+  "keywords": [],  
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Eric Delerue <me@ericdelerue.com> (ericdelerue.com)",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
