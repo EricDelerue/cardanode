@@ -20,6 +20,8 @@ app.get('/', (req, res) => {
 });
 */
 
+app.use(express.static(__dirname + '/'));
+
 app.get('/portfolios', async (req, res, next) => {
 
   try {

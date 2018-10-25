@@ -33,10 +33,11 @@ The following functionalities do not appear in the project:
 
 - Add tests
 
-## Bugs or unecessary code
+## Bugs or unnecessary code
 
-* app.use(express.static('public')) It is an API so there's nothing to show except a JSON object
 * calls to log.info(...) instead of logger.info(...)
+* app.use(express.static('public')) unnecessary
+* no http dependency needed
 
 ## Made on/with:
 
