@@ -7,16 +7,30 @@
 const db = require('./database/');
 const logger = require('./logger');
 
-const joinObjectsByIds = (obj1, obj2, cur) => {
+const filterPositionsByCurrency = (positions, cur) => {
+
+    positions.sort();
+    let filtered_positions = {};
     
-    obj1.sort();
+		filtered_positions = positions.filter( position => cur !== null ? position.currency == cur : position.currency !== '' );
+		
+		return filtered_positions;    
     
-		for (let i in obj1) {
-			let idPortefeuillesCourant = obj1[i].id;
-			obj1[i].portfoglios = obj2.filter( (position) => (position.portfolioId == idPortefeuillesCourant && ( cur !== null ? position.currency == cur : position.currency !== '' ) ) );
+}
+
+const joinPortfoliosPositionsByIds = (portfolios, positions, cur) => {
+    
+    portfolios.sort();
+    
+    const filtered_positions = (cur !== null) ? filterPositionsByCurrency(positions, cur) : positions;
+    logger.info('filtered_positions: ', filtered_positions);
+    
+		for (let i in portfolios) {
+			let idPortefeuillesCourant = portfolios[i].id;
+			portfolios[i].portfoglios = filtered_positions.filter( position => position.portfolioId == idPortefeuillesCourant );
 		}
 
-	  return obj1;
+	  return portfolios;
 };
 
 
@@ -24,7 +38,7 @@ const getData = async function () {
 	
 	try {
 		
-		let currency = (arguments.length) ? arguments[0].toUpperCase() : null;
+		const currency = (arguments.length) ? arguments[0].toUpperCase() : null;
 
 		// Connect to the database
 		const connection = await db.connect(true);
@@ -33,8 +47,10 @@ const getData = async function () {
 		// Get the data
 		const {portfolios, positions} = await connection.load();
     
-    // Filter it
-		const filtered_results = joinObjectsByIds(portfolios, positions, currency);
+    // Join results and filter it
+		const filtered_results = joinPortfoliosPositionsByIds(portfolios, positions, currency);
+		
+		
 		logger.info('filtered_results: ', filtered_results);
 		
 		// Send it back 
