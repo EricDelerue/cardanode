@@ -23,11 +23,20 @@ delerue_eric@hotmail.com
 
 ## Note: 
 
+Nothing has been modified in the original test files, except in ./index.test.js and ./index.js 
+
+No additional libraries or configuration files have been used.
+
 The author hopes he has achieved the necessary and sufficient features to allow Cardano's technicians to evaluate his skills and potential.
 
 The following functionalities do not appear in the project:
 
-- Add the ability to retrieve only those portfolios which have the currency specified in the query.
+- Add tests
+
+## Bugs or unecessary code
+
+* app.use(express.static('public')) It is an API so there's nothing to show except a JSON object
+* calls to log.info(...) instead of logger.info(...)
 
 ## Made on/with:
 
@@ -50,6 +59,6 @@ Then
 
 	npm start 
 
-Open a browser window and type http://localhost:3000/portfolios
+Open a browser window and type http://localhost:3000/portfolios or http://localhost:3000/portfolios/EUR or http://localhost:3000/portfolios/USD
 
 Wait 2 seconds (setTimeout) to see the json result

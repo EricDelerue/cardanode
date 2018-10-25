@@ -37,11 +37,11 @@ app.get('/portfolios', async (req, res, next) => {
 
 });
 
-app.get('/portfolios/:id', async (req, res, next) => {
+app.get('/portfolios/:currency', async (req, res, next) => {
 
   try {
-
-    const testResult = await runTests();
+    const currency = req.params.currency;
+    const testResult = await runTests(currency);
     logger.info('testResult: ', testResult);
     res.json(testResult);
 
