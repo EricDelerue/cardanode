@@ -37,4 +37,21 @@ app.get('/portfolios', async (req, res, next) => {
 
 });
 
+app.get('/portfolios/:id', async (req, res, next) => {
+
+  try {
+
+    const testResult = await runTests();
+    logger.info('testResult: ', testResult);
+    res.json(testResult);
+
+  } catch (e) {
+
+    //this will eventually be handled by the error handling middleware
+    next(e) 
+
+  }
+
+});
+
 app.listen(3000, () => logger.info('Server started'));

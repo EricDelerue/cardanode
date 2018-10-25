@@ -16,10 +16,6 @@
 * Add the ability to retrieve only those portfolios which have the currency specified in the query. The data should be structured as above with positions as a property on each portfolio.
 * Add whatever features you think necessary to make this a production ready application but you don't need a complete implementation as long as samples of each of the key ideas that should be implemented are included.
 
-## Demo
-  
-  Follow this link to see a [DEMO](http://dev.ericdelerue.com/cardanode/portfolios) of this app.
-
 ## Author: 
 
 Eric Delerue
@@ -27,7 +23,7 @@ delerue_eric@hotmail.com
 
 ## Note: 
 
-For work problems and therefore availability problems, the author hopes he has achieved the necessary and sufficient features to allow Cardano's technicians to evaluate his skills and potential.
+The author hopes he has achieved the necessary and sufficient features to allow Cardano's technicians to evaluate his skills and potential.
 
 The following functionalities do not appear in the project:
 
