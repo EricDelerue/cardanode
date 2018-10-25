@@ -11,7 +11,7 @@ const filterPositionsByCurrency = (positions, cur) => {
 
     positions.sort();
     let filtered_positions = {};
-    
+		
 		filtered_positions = positions.filter( position => cur !== null ? position.currency == cur : position.currency !== '' );
 		
 		return filtered_positions;    
@@ -23,14 +23,14 @@ const joinPortfoliosPositionsByIds = (portfolios, positions, cur) => {
     portfolios.sort();
     
     const filtered_positions = (cur !== null) ? filterPositionsByCurrency(positions, cur) : positions;
-    logger.info('filtered_positions: ', filtered_positions);
-    
+		logger.info('filtered_positions: ', filtered_positions);
+		
 		for (let i in portfolios) {
-			let idPortefeuillesCourant = portfolios[i].id;
-			portfolios[i].portfoglios = filtered_positions.filter( position => position.portfolioId == idPortefeuillesCourant );
+				let idPortefeuillesCourant = portfolios[i].id;
+				portfolios[i].portfoglios = filtered_positions.filter( position => position.portfolioId == idPortefeuillesCourant );
 		}
-
-	  return portfolios;
+		
+		return portfolios;
 };
 
 
@@ -46,8 +46,8 @@ const getData = async function () {
 		
 		// Get the data
 		const {portfolios, positions} = await connection.load();
-    
-    // Join results and filter it
+		
+		// Join results and filter it
 		const filtered_results = joinPortfoliosPositionsByIds(portfolios, positions, currency);
 		
 		
