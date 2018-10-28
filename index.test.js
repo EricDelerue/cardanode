@@ -44,9 +44,9 @@ function findPositionsByPortfolios(portfolios, positions, currency) {
     : combined;
 }
 
-const getData = async function() {
+const getData = async function(currency) {
   try {
-    const currency = arguments.length ? arguments[0].toUpperCase() : null;
+    // const currency = arguments.length ? arguments[0].toUpperCase() : null;
     logger.info('getData currency: ', currency);
 
     // Connect to the database
