@@ -10,10 +10,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {  
+app.get('/', (req, res) => {
   const testResult = runTests();
   logger.info('testResult: ', testResult);
   res.json(testResult);
