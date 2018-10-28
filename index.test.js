@@ -2,63 +2,72 @@
 - Connect to the database
 - Get the data
 - Filter it
+  Two-stage pass:
+  1) combine the portfolios with their positions, and 
+  2) filter out those portfolios who have positions in the specified language.
 - Send it back 
 */
 const db = require('./database/');
 const logger = require('./logger');
 
-const filterPositionsByCurrency = (positions, cur) => {
+/*
+function _findPositionsByPortfolios(portfolios, positions, currency) {
 
-    positions.sort();
-    let filtered_positions = {};
-		
-    filtered_positions = positions.filter( position => cur !== null ? position.currency == cur : position.currency !== '' );
-		
-    return filtered_positions;    
-    
+  // Map over the portfolios and get their positions
+  const combined = portfolios.map(portfolio => {
+    const filteredPositions = positions.filter(position => position.portfolioId === portfolio.id);
+    return { ...portfolio, positions: filteredPositions };
+  });
+
+  // If a language has been specified, return only those portfolios who have positions in that language
+  return currency ? combined.filter(portfolio => portfolio.positions.some(position => position.currency === currency)) : combined;
+  
 }
+*/
 
-const joinPortfoliosPositionsByIds = (portfolios, positions, cur) => {
-    
-    portfolios.sort();
-    
-    const filtered_positions = (cur !== null) ? filterPositionsByCurrency(positions, cur) : positions;
-    logger.info('filtered_positions: ', filtered_positions);
-		
-    for (let i in portfolios) {
-	let idPortefeuillesCourant = portfolios[i].id;
-	portfolios[i].portfoglios = filtered_positions.filter( position => position.portfolioId == idPortefeuillesCourant );
-    }
-		
-    return portfolios;
+function findPositionsByPortfolios(portfolios, positions, currency) {
 
-};
+  // Map over the portfolios and get their positions
+  const combined = portfolios.map(portfolio => {
+    const filteredPositions = currency
+      ? positions.filter(position => position.portfolioId === portfolio.id && position.currency === currency)
+      : positions.filter(position => position.portfolioId === portfolio.id)
+    return { ...portfolio, positions: filteredPositions };
+  });
 
+  // If a language has been specified, return only those portfolios who have positions in that language
+  return currency ? combined.filter(portfolio => portfolio.positions.some(position => position.currency === currency)) : combined;
+  
+}
 
 const getData = async function () {
 	
     try {
 
         const currency = (arguments.length) ? arguments[0].toUpperCase() : null;
-
+        logger.info('getData currency: ', currency);
+        
         // Connect to the database
         const connection = await db.connect(true);
-        logger.info('connection: ', connection);
+        //logger.info('connection: ', connection);
 		
         // Get the data
         const {portfolios, positions} = await connection.load();
 		
         // Join results and filter it
-        const filtered_results = joinPortfoliosPositionsByIds(portfolios, positions, currency);
-        logger.info('filtered_results: ', filtered_results);
+        //const portfoliosPositions = findPositionsByPortfolios(portfolios, positions);
+        //logger.info('getData portfoliosPositions: ', portfoliosPositions);
+        
+        const portfoliosPositionsCurrency = findPositionsByPortfolios(portfolios, positions, currency);
+        logger.info('getData portfoliosPositionsCurrency: ', portfoliosPositionsCurrency);
 		
         // Send it back 
-        return filtered_results;
+        return portfoliosPositionsCurrency;
 		
     } catch(e) {
 		
       logger.error('e: ', e);
-      return null;
+      return e;
     
   }
   
