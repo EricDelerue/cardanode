@@ -10,7 +10,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-/*
+
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {  
@@ -18,8 +18,8 @@ app.get('/', (req, res) => {
   logger.info('testResult: ', testResult);
   res.json(testResult);
 });
-*/
 
+/*
 app.use(express.static(__dirname + '/'));
 
 app.get('/portfolios', async (req, res, next) => {
@@ -44,5 +44,6 @@ app.get('/portfolios/:currency', async (req, res, next) => {
     next(e);
   }
 });
+*/
 
 app.listen(3000, () => logger.info('Server started'));
