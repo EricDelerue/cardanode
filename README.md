@@ -23,15 +23,26 @@ delerue_eric@hotmail.com
 
 ## Note: 
 
-Nothing has been modified in the original test files, except in ./index.test.js and ./index.js 
+As requested, nothing has been modified in the original test files, all new code is in ./index.test.js
 
-No additional libraries or configuration files have been used.
+But the original code as such can not work. It is not possible to call an asynchronous function from a synchronous function. I could use the low level API of .then ()
+
+		app.get('/portfolios/:currency', (req, res, next) => { 
+
+		  const currency = req.params.currency; 
+		  getData( currency )
+		    .then(getResults => res.json(getResults));
+		    .catch(next);
+
+		});
+
+No additional libraries or configuration files have been used, except prettier for code styling.
 
 The author hopes he has achieved the necessary and sufficient features to allow Cardano's technicians to evaluate his skills and potential.
 
 The following functionalities do not appear in the project:
 
-- Add tests
+- Testing
 
 ## Bugs or unnecessary code
 
